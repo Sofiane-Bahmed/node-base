@@ -16,7 +16,7 @@ export const helloWorld = inngest.createFunction(
         await step.run("create-workflow", () => {
             return prisma.workflow.create({
                 data: {
-                    name: "worflow-from-inngest"
+                    name: "workflow-from-inngest"
                 }
             })
         })
