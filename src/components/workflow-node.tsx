@@ -38,7 +38,7 @@ export function WorkflowNode({
                         variant="ghost"
                         onClick={onSettings}
                     >
-                        <SettingsIcon className="size-4 " />
+                        <SettingsIcon className="size-4"/>
                     </Button>
                     <Button
                         size="sm"
