@@ -9,7 +9,7 @@ const page = async ({ params }: pageProps) => {
     await requireAuth();
     const { credentialsId } = await params;
     return (
-        <div>credential id: {credentialsId}</div>
+        <div>this is credential id: {credentialsId}</div>
     )
 }
 
