@@ -18,7 +18,6 @@ import {
     type EdgeChange,
     type Connection,
     Panel,
-
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useSuspenseWorkflow } from "@/features/workflows/hooks/use-workflows"
