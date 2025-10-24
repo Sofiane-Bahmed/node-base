@@ -24,6 +24,7 @@ import { useEntitySearch } from "@/hooks/use-entity-search";
 import type { Workflow } from "@/generated/prisma";
 import { WorkflowIcon } from "lucide-react";
 
+
 export const WorkflowsSearch = () => {
     const [params, setParams] = useWorkflowsParams();
     const { searchValue, onSearchChange } = useEntitySearch({
@@ -156,7 +157,7 @@ export const WorkflowItem = ({ data }: { data: Workflow }) => {
     return (
         <EntityItems
             href={`/workflows/${data.id}`}
-            title={data.name} 
+            title={data.name}
             subtitle={
                 <>
                     Updated {formatDistanceToNow(data.updatedAt, { addSuffix: true })}{" "}
