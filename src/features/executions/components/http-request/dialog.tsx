@@ -27,14 +27,14 @@ import {
     SelectValue
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import z from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 
 export type formType = z.infer<typeof formSchema>;
 
-interface ManualTriggerDialogProps {
+interface HttpRequestDialogProps {
     open: boolean,
     onOpenChange: (open: boolean) => void,
     onSubmit: (values: z.infer<typeof formSchema>) => void,
@@ -59,7 +59,7 @@ export const HttpRequestDialog = ({
     defaultEndpoint = "",
     defaultMethod = "GET",
     defaultBody = ""
-}: ManualTriggerDialogProps) => {
+}: HttpRequestDialogProps) => {
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -101,7 +101,7 @@ export const HttpRequestDialog = ({
                 <DialogHeader>
                     <DialogTitle>Http Request </DialogTitle>
                     <DialogDescription>
-                        configure the settings for manual trigger node.
+                        +                        Configure the settings for the HTTP request execution node.
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
@@ -155,9 +155,6 @@ export const HttpRequestDialog = ({
                                     <FormDescription>
                                         Static URL or use {"{{variable}}"} for simple values or {"{{json variable}}"} to stringify objects
                                     </FormDescription>
-                                    <FormDescription>
-                                        The HTTP method to use for this request
-                                    </FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -180,9 +177,6 @@ export const HttpRequestDialog = ({
                                         </FormControl>
                                         <FormDescription>
                                             JSON with template variables. Use {"{{variable}}"} for simple values or {"{{json variable}}"} to stringify objects
-                                        </FormDescription>
-                                        <FormDescription>
-                                            The HTTP method to use for this request
                                         </FormDescription>
                                         <FormMessage />
                                     </FormItem>
