@@ -1,11 +1,19 @@
+import ky, { type Options as kyOptions } from "ky";
+import Handlebars from "handlebars"
 import { NodeExecutor } from "@/features/executions/types";
 import { NonRetriableError } from "inngest";
-import ky, { type Options as kyOptions } from "ky";
+
+Handlebars.registerHelper("json", (context) => {
+    const jsonString = JSON.stringify(context, null, 2);
+    const safeString = new Handlebars.SafeString(jsonString);
+
+    return safeString;
+})
 
 type HttpRequestData = {
-    variableName?: string,
-    endpoint?: string,
-    method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
+    variableName: string,
+    endpoint: string,
+    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
     body?: string,
 
 }
@@ -28,14 +36,22 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
         throw new NonRetriableError("variable name not configured");
     }
 
+    if (!data.method) {
+        //TODO: Publish "error" state for http request
+        throw new NonRetriableError("methode not configured");
+    }
+
     const result = await step.run("http-request", async () => {
-        const endpoint = data.endpoint!;
-        const method = data.method || "GET";
+        const endpoint = Handlebars.compile(data.endpoint)(context);
+        console.log('ENDPOINT', { endpoint })
+        const method = data.method;
 
         const options: kyOptions = { method };
 
         if (["POST", "PATCH", "PUT"].includes(method)) {
-            options.body = data.body;
+            const resolved = Handlebars.compile(data.body)(context);
+            JSON.parse(resolved)
+            options.body = resolved;
             options.headers = {
                 "Content-Type": "application/json"
             }
@@ -55,18 +71,11 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
             },
         };
 
-        if (data.variableName) {
-            return {
-                ...context,
-                [data.variableName]: responsePayload
-            }
-        };
-
-        // fallback to direct httpResponse for backward compatibility
         return {
             ...context,
-            ...responsePayload
+            [data.variableName]: responsePayload
         }
+
     })
 
     //TODO : publish "success" state for http request 
