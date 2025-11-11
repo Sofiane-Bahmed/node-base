@@ -61,7 +61,7 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
                 status: "error"
             }),
         );
-        throw new NonRetriableError("methode not configured");
+        throw new NonRetriableError("method not configured");
     }
 
     try {
