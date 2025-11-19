@@ -1,7 +1,7 @@
 import { sendWorkflowExecution } from "@/inngest/utils";
 import { type NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
     try {
         const url = new URL(request.url);
         const workflowId = url.searchParams.get("workflowId");
