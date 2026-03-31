@@ -68,13 +68,6 @@ NodeBase is a powerful, visual node-based automation platform that allows you to
    GOOGLE_CLIENT_ID="your-google-client-id"
    GOOGLE_CLIENT_SECRET="your-google-client-secret"
 
-   # generative AI
-   GOOGLE_GENERATIVE_AI_API_KEY= "your-google-ai-api-key"
-
-   OPENAI_API_KEY= "your-openai-ai-api-key"
-
-   ANTHROPIC_API_KEY ="your-anthropic-ai-api-key"
-
    # Sentry
    SENTRY_AUTH_TOKEN="your-sentry-auth-token"
 
