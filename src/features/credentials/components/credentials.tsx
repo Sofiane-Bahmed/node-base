@@ -14,7 +14,6 @@ import {
     LoadingView
 } from "@/components/entity-components";
 import {
-    useCreateCredential,
     useRemoveCredential,
     useSuspenseCredentials
 } from "../hooks/use-credentials";
